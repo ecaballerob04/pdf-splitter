@@ -5,7 +5,7 @@ use PDF::API2;
 use Text::CSV;
 use Archive::Zip qw( :ERROR_CODES :CONSTANTS);
 
-my ($pdfFileName, $csvFileName, $destFile ) = @ARGV;
+my ($pdfFileName, $csvFileName, $destDir, $destFile ) = @ARGV;
 
 if( not defined $pdfFileName) {
     die "PDF file need it";
@@ -13,11 +13,13 @@ if( not defined $pdfFileName) {
 if( not defined $csvFileName) {
     die "CSV file need it";
 }
+if( not defined $destDir) {
+    die "Directorry destination need it";
+}
 if( not defined $destFile) {
     die "Destination file need it";
 }
 
-my $destDir = "../results";
 mkdir($destDir) 
     or $!{EEXIST}
     or die "Cannot create directory";
@@ -55,7 +57,6 @@ sub get_rows {
     my @rows;
     while (my $line = <$fh>){
         chomp $line;
-        
         if($csv->parse($line)) {
             my @fields = $csv->fields();
             push @rows, $fields[0] 
