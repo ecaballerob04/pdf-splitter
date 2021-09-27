@@ -7,16 +7,22 @@ use Archive::Zip qw( :ERROR_CODES :CONSTANTS);
 
 my ($pdfFileName, $csvFileName, $destDir, $destFile ) = @ARGV;
 
+my $usage = "perl ./pdf-splitter PDF-FILE CSV-FILE RESULT-DIR DESTINATION-ZIP \n";
+
 if( not defined $pdfFileName) {
+    print $usage;
     die "PDF file need it";
 }
 if( not defined $csvFileName) {
+    print $usage;
     die "CSV file need it";
 }
 if( not defined $destDir) {
+    print $usage;
     die "Directorry destination need it";
 }
 if( not defined $destFile) {
+    print $usage;
     die "Destination file need it";
 }
 
